@@ -1,4 +1,4 @@
 # protoplugin
 plugins for protobuf
 
-*.pyc
+some util plugins for ProtobufBuufer
