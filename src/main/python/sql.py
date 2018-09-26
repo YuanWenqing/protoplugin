@@ -81,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `%s` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT "%s";
 """
 
-    def __init__(self, proto):
+    def __init__(self, proto, msg_filter):
         self.proto = proto
+        self.msg_filter = msg_filter
 
     def generate(self):
         code = ''
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
         comment = find_msg_comment(self.proto.source_code_info.location, msg_idx)
         if msg.options.deprecated:
             comment += "\ndeprecated"
-        comment_line = comment.strip().replace("\n", " \\n ")
+        comment_line = comment.strip().replace("\n", " ")
         table_comment = comment + "\n" + full_name
         table_comment = format_comment(table_comment, '-- ').strip()
         field_code = ''
@@ -106,7 +107,10 @@ CREATE TABLE IF NOT EXISTS `%s` (
             if field_idx + 1 < len(msg.field):
                 field_code += ","
             field_code += "\n"
-        return SqlGenerator.MsgTemplate % (table_comment, table_name, field_code, comment_line)
+        msg_code = SqlGenerator.MsgTemplate % (table_comment, table_name, field_code, comment_line)
+        if msg.name in self.msg_filter:
+            sys.stderr.write(msg_code)
+        return msg_code
 
     def handle_message_field(self, msg_idx, field_idx):
         msg = self.proto.message_type[msg_idx]
@@ -156,12 +160,16 @@ CREATE TABLE IF NOT EXISTS `%s` (
 def generate_sql(req, resp):
     n2f = index_proto(req.proto_file)
 
+    msg_filter = []
+    if req.parameter:
+        msg_filter = [name.strip() for name in req.parameter.split(',')]
+
     for filename in req.file_to_generate:
         proto = n2f[filename]
         if len(proto.message_type) == 0:
             continue
 
-        generator = SqlGenerator(proto)
+        generator = SqlGenerator(proto, msg_filter)
         out_f = resp.file.add()
         out_f.name = filename.replace(".proto", ".sql")
         out_f.content = generator.generate()
