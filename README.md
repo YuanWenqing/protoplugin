@@ -44,3 +44,12 @@ public interface OuterNaming {
   }
 }
 ~~~
+
+
+## Write A Custom Protobuf Plugin
+Tutorials:
+
+English: <https://www.expobrain.net/2015/09/13/create-a-plugin-for-google-protocol-buffer/>
+
+Chinese: <https://tunsuy.github.io/2017/02/20/%E4%B8%BAProtobuf%E7%BC%96%E8%AF%91%E5%99%A8protoc%E7%BC%96%E5%86%99%E6%8F%92%E4%BB%B6/>
+
