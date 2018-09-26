@@ -78,7 +78,7 @@ class SqlGenerator:
 %s
 CREATE TABLE IF NOT EXISTS `%s` (
 %s
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT "%s";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT '%s';
 """
 
     def __init__(self, proto, msg_filter):
@@ -96,12 +96,12 @@ CREATE TABLE IF NOT EXISTS `%s` (
         full_name = self.proto.package + '.' + msg.name
         table_name = underscore(msg.name)
 
-        comment = find_msg_comment(self.proto.source_code_info.location, msg_idx)
+        comment = full_name + "\n"
         if msg.options.deprecated:
-            comment += "\ndeprecated"
+            comment += "deprecated\n"
+        comment += find_msg_comment(self.proto.source_code_info.location, msg_idx)
         comment_line = comment.strip().replace("\n", " ")
-        table_comment = comment + "\n" + full_name
-        table_comment = format_comment(table_comment, '-- ').strip()
+        table_comment = format_comment(comment, '-- ').strip()
 
         lines = []
         # field
