@@ -4,7 +4,7 @@ import sys, os
 import itertools
 
 from google.protobuf.compiler import plugin_pb2 as plugin
-from google.protobuf.descriptor_pb2 import DescriptorProto, EnumDescriptorProto
+from google.protobuf.descriptor_pb2 import DescriptorProto
 
 
 def index_proto(proto_files):
