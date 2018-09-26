@@ -95,19 +95,35 @@ CREATE TABLE IF NOT EXISTS `%s` (
         msg = self.proto.message_type[msg_idx]
         full_name = self.proto.package + '.' + msg.name
         table_name = underscore(msg.name)
+
         comment = find_msg_comment(self.proto.source_code_info.location, msg_idx)
         if msg.options.deprecated:
             comment += "\ndeprecated"
         comment_line = comment.strip().replace("\n", " ")
         table_comment = comment + "\n" + full_name
         table_comment = format_comment(table_comment, '-- ').strip()
-        field_code = ''
+
+        lines = []
+        # field
         for field_idx in range(len(msg.field)):
-            field_code += self.handle_message_field(msg_idx, field_idx)
-            if field_idx + 1 < len(msg.field):
-                field_code += ","
-            field_code += "\n"
-        msg_code = SqlGenerator.MsgTemplate % (table_comment, table_name, field_code, comment_line)
+            field_line = self.handle_message_field(msg_idx, field_idx)
+            lines.append(field_line)
+        lines.append("")
+        # index
+        for field in msg.field:
+            if field.name == 'id':
+                lines.append("PRIMARY KEY (`id`)")
+
+        table_code = ""
+        for idx in range(len(lines)):
+            line = lines[idx]
+            if line != "":
+                table_code += "  " + line
+                if idx + 1 < len(lines):
+                    table_code += ","
+            table_code += "\n"
+
+        msg_code = SqlGenerator.MsgTemplate % (table_comment, table_name, table_code, comment_line)
         if msg.name in self.msg_filter:
             sys.stderr.write(msg_code)
         return msg_code
@@ -115,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
     def handle_message_field(self, msg_idx, field_idx):
         msg = self.proto.message_type[msg_idx]
         field = msg.field[field_idx]
-        code = "  `%s` " % field.name
+        code = "`%s` " % field.name
 
         if field.label == fdp.LABEL_REPEATED:
             code += "TEXT"
@@ -146,6 +162,8 @@ CREATE TABLE IF NOT EXISTS `%s` (
             code += "VARCHAR(100) DEFAULT ''"
         elif field.type == fdp.TYPE_MESSAGE:
             code += "TEXT"
+        else:
+            sys.stderr.write("! unhandled field: %s.%s" % (msg.name, field.name))
 
         comment = find_field_comment(self.proto.source_code_info.location, msg_idx, field_idx)
         comment_line = comment.strip().replace("\n", " ")
