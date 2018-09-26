@@ -90,10 +90,10 @@ public interface %s {
     def generate(self):
         code = ''
         for msgIdx in range(len(self.proto.message_type)):
-            code += self.generate_msg(msgIdx)
+            code += self.handle_message(msgIdx)
         return NamingGenerator.FileTemplate % (self.javaPkg, self.proto.name, self.javaOuterCls, code)
 
-    def generate_msg(self, msg_idx):
+    def handle_message(self, msg_idx):
         msg = self.proto.message_type[msg_idx]
         full_name = self.proto.package + '.' + msg.name
         annotation = ''
@@ -101,12 +101,12 @@ public interface %s {
             annotation = '\n  @java.lang.Deprecated'
         field_code = ''
         for fieldIdx in range(len(msg.field)):
-            field_code += self.generate_field(msg_idx, fieldIdx)
+            field_code += self.handle_message_field(msg_idx, fieldIdx)
         comment = find_msg_comment(self.proto.source_code_info.location, msg_idx)
         comment = format_comment(comment, '   * ')
         return NamingGenerator.MsgTemplate % (comment, full_name, annotation, msg.name, field_code)
 
-    def generate_field(self, msg_idx, field_idx):
+    def handle_message_field(self, msg_idx, field_idx):
         msg = self.proto.message_type[msg_idx]
         field = msg.field[field_idx]
         code = ''
