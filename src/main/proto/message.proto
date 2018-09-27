@@ -17,10 +17,12 @@ enum E {
     B = 1;
 }
 
+// This is Foo
 message Foo {
+    // this is id
     string id = 1;
     double double_v = 2;
-    repeated int32 int_arr = 3;
+    repeated int32 int_arr = 3 [deprecated=true];
     map<string, string> map = 4;
 
     int64 create_time = 50;

@@ -32,4 +32,4 @@ protoc \
     --sql_out=$MSG_NAME:$OUT_DIR \
     $PROTO_FILE
 
-echo "! see whole sql file in $OUT_DIR"
+echo "! see all create-table sql in files under $OUT_DIR"

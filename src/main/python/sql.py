@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
 
         comment = full_name + "\n"
         if msg.options.deprecated:
-            comment += "deprecated\n"
+            comment += "@deprecated\n"
         comment += find_msg_comment(self.proto.source_code_info.location, msg_idx)
         comment_line = comment.strip().replace("\n", " ")
         table_comment = format_comment(comment, '-- ').strip()
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
         comment = find_field_comment(self.proto.source_code_info.location, msg_idx, field_idx)
         comment_line = comment.strip().replace("\n", " ")
         if field.options.deprecated:
-            comment_line = "deprecated " + comment_line
+            comment_line = "@deprecated " + comment_line
         comment_line = comment_line.strip()
         if comment_line != "":
             code = "%s COMMENT '%s'" % (code, comment_line)
