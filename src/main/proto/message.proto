@@ -1,0 +1,31 @@
+syntax = "proto3";
+package test.proto;
+
+option java_package = "test.proto.data";
+option java_outer_classname = "Messages";
+
+
+// This is a message
+message Message {
+    option deprecated = true;
+    int64 id = 1;
+    string name = 2;
+}
+
+enum E {
+    A = 0;
+    B = 1;
+}
+
+// This is Foo
+message Foo {
+    // this is id
+    string id = 1;
+    double double_v = 2;
+    repeated int32 int_arr = 3 [deprecated=true];
+    map<string, string> map = 4;
+
+    int64 create_time = 50;
+    int64 update_time = 51;
+    int64 delete_time = 52;
+}
