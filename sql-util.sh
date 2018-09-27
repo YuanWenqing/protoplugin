@@ -18,7 +18,7 @@ if [ $# -eq 3 ]; then
   MSG_NAME=$3
 fi
 
-OUT_DIR=./sql
+OUT_DIR=/tmp/sql
 if [ ! -d $OUT_DIR ]; then
     mkdir -p $OUT_DIR
 fi
@@ -32,3 +32,4 @@ protoc \
     --sql_out=$MSG_NAME:$OUT_DIR \
     $PROTO_FILE
 
+echo "! see whole sql file in $OUT_DIR"

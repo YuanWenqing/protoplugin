@@ -74,8 +74,7 @@ class SqlGenerator:
 -- file: %s
 %s
 """
-    MsgTemplate = """
-%s
+    MsgTemplate = """%s
 CREATE TABLE IF NOT EXISTS `%s` (
 %s
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT '%s';
@@ -126,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
         msg_code = SqlGenerator.MsgTemplate % (table_comment, table_name, table_code, comment_line)
         if msg.name in self.msg_filter:
             sys.stderr.write(msg_code)
+            sys.stderr.write("\n")
         return msg_code
 
     def handle_message_field(self, msg_idx, field_idx):
