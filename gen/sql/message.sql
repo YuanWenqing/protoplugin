@@ -2,7 +2,7 @@
 -- file: message.proto
 
 -- test.proto.Message
--- deprecated
+-- @deprecated
 -- This is a message
 CREATE TABLE IF NOT EXISTS `message` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
@@ -10,13 +10,14 @@ CREATE TABLE IF NOT EXISTS `message` (
 
   PRIMARY KEY (`id`)
 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Message deprecated  This is a message';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Message @deprecated  This is a message';
 
 -- test.proto.Foo
+-- This is Foo
 CREATE TABLE IF NOT EXISTS `foo` (
-  `id` VARCHAR(32) NOT NULL,
+  `id` VARCHAR(32) NOT NULL COMMENT 'this is id',
   `double_v` DECIMAL(20,6) DEFAULT 0,
-  `int_arr` TEXT,
+  `int_arr` TEXT COMMENT '@deprecated',
   `map` TEXT,
   `create_time` DATETIME DEFAULT now(),
   `update_time` DATETIME DEFAULT now() ON UPDATE now(),
@@ -24,5 +25,6 @@ CREATE TABLE IF NOT EXISTS `foo` (
 
   PRIMARY KEY (`id`)
 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Foo';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Foo  This is Foo';
+
 
