@@ -239,8 +239,20 @@ package %s;
 #         return code
 
 
+def parse_parameter(parameter):
+    opts = {}
+    for part in parameter.split(','):
+        pos = part.find('=')
+        if pos < 0:
+            opts[part] = None
+        else:
+            opts[part[0:pos]] = part[pos+1:]
+    return opts
+
+
 def generate_code(req, resp):
     n2f = index_proto(req.proto_file)
+    opts = parse_parameter(req.parameter)
 
     for filename in req.file_to_generate:
         proto = n2f[filename]
@@ -248,6 +260,8 @@ def generate_code(req, resp):
             continue
 
         javaPkg = '%s.naming' % proto.options.java_package
+        if 'java_package' in opts:
+            javaPkg = opts['java_package']
         if proto.options.java_multiple_files:
             for msgIdx in range(len(proto.message_type)):
                 generator = MessageNamingGenerator(javaPkg, proto, msgIdx)
