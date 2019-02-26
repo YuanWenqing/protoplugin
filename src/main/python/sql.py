@@ -140,7 +140,8 @@ CREATE TABLE IF NOT EXISTS `%s` (
             code += "DATETIME DEFAULT now()"
         elif field.name == 'update_time':
             code += "DATETIME DEFAULT now() ON UPDATE now()"
-        elif field.name.endswith('_time'):
+        elif field.type_name.endswith('google.protobuf.Timestamp') or field.name.endswith('_time'):
+            # time field
             code += "DATETIME DEFAULT NULL"
         elif field.name == 'id':
             if field.type == fdp.TYPE_INT64:
