@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
         elif field.type == fdp.TYPE_ENUM:
             code += "TINYINT(2) DEFAULT 0"
         elif field.type == fdp.TYPE_STRING:
-            if field.name.endswith("_url"):
+            if field.name == 'url' or field.name.endswith("_url"):
                 code += "TEXT"
             else:
                 code += "VARCHAR(100) DEFAULT ''"
