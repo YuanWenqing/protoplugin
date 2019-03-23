@@ -6,9 +6,16 @@ plugins for ProtocolBuffer.
 * gradle: see [protobuf-gradle-plugin](https://github.com/google/protobuf-gradle-plugin)
 
 ## naming
+
 Naming codegen plugin for Protobuf is used to generate Java code, containing all "naming" constants from protobuf message definitions. The 'naming' here is meant to be the field names in all protobuf messages, excluding enums.
 
-Example: `outer.proto`
+### options
+
+* `java_package`: package for generated naming Java class, default is sub-package `naming` under `java_package` option in protobuf file
+
+### Example
+
+ `outer.proto`
 
 ~~~protobuf
 syntax = "proto3";
