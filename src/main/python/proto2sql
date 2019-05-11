@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 2 ]; then
-  echo """ERROR: $0 <proto_dir> <proto_files> [<msg_names>]
+  echo """USAGE: $0 <proto_dir> <proto_files> [<msg_names>]
 
     proto_dir       base dir of proto files'
     proto_files     related path of proto files under <proto_dir>'
@@ -24,7 +24,7 @@ if [ ! -d $OUT_DIR ]; then
 fi
 
 SCRIPT_DIR=$(dirname $0)
-SQL_PLUGIN=$SCRIPT_DIR/src/main/python/sql.py
+SQL_PLUGIN=$SCRIPT_DIR/sql.py
 
 protoc \
     --proto_path=$PROTO_DIR \
