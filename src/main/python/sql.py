@@ -137,12 +137,12 @@ CREATE TABLE IF NOT EXISTS `%s` (
         if field.label == fdp.LABEL_REPEATED:
             code += "TEXT"
         elif field.name == 'create_time':
-            code += "TIMESTAMP DEFAULT now()"
+            code += "DATETIME DEFAULT now()"
         elif field.name == 'update_time':
-            code += "TIMESTAMP DEFAULT now() ON UPDATE now()"
+            code += "DATETIME DEFAULT now() ON UPDATE now()"
         elif field.type_name.endswith('google.protobuf.Timestamp') or field.name.endswith('_time'):
             # time field
-            code += "TIMESTAMP DEFAULT NULL"
+            code += "DATETIME DEFAULT NULL"
         elif field.name == 'id':
             if field.type == fdp.TYPE_INT64:
                 code += "BIGINT(20) NOT NULL AUTO_INCREMENT"
