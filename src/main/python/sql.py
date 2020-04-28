@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
             code += "TIMESTAMP DEFAULT now() ON UPDATE now()"
         elif field.type_name.endswith('google.protobuf.Timestamp') or field.name.endswith('_time'):
             # time field
-            code += "TIMESTAMP DEFAULT NULL"
+            code += "TIMESTAMP NULL"
         elif field.name == 'id':
             if field.type == fdp.TYPE_INT64:
                 code += "BIGINT(20) NOT NULL AUTO_INCREMENT"
