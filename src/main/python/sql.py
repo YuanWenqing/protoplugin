@@ -216,4 +216,4 @@ if __name__ == '__main__':
     output = response.SerializeToString()
 
     # Write to stdout
-    sys.stdout.write(output)
+    sys.stdout.buffer.write(output)

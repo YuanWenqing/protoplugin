@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `foo` (
   `double_v` DECIMAL(20,6) DEFAULT 0,
   `int_arr` TEXT COMMENT '@deprecated',
   `map` TEXT,
-  `create_time` DATETIME DEFAULT now(),
-  `update_time` DATETIME DEFAULT now() ON UPDATE now(),
-  `delete_time` DATETIME DEFAULT NULL,
+  `create_time` TIMESTAMP DEFAULT now(),
+  `update_time` TIMESTAMP DEFAULT now() ON UPDATE now(),
+  `delete_time` BIGINT(20) DEFAULT 0,
 
   PRIMARY KEY (`id`)
 
