@@ -4,27 +4,33 @@
 -- test.proto.Message
 -- @deprecated
 -- This is a message
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) DEFAULT '',
+CREATE TABLE IF NOT EXISTS `message`
+(
+    `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) DEFAULT '',
 
-  PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`)
 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Message @deprecated  This is a message';
+) ENGINE=InnoDB COMMENT 'test.proto.Message @deprecated  This is a message'
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
 
 -- test.proto.Foo
 -- This is Foo
-CREATE TABLE IF NOT EXISTS `foo` (
-  `id` VARCHAR(32) NOT NULL COMMENT 'this is id',
-  `double_v` DECIMAL(20,6) DEFAULT 0,
-  `int_arr` TEXT COMMENT '@deprecated',
-  `map` TEXT,
-  `create_time` TIMESTAMP DEFAULT now(),
-  `update_time` TIMESTAMP DEFAULT now() ON UPDATE now(),
-  `delete_time` BIGINT(20) DEFAULT 0,
+CREATE TABLE IF NOT EXISTS `foo`
+(
+    `id` VARCHAR(32) NOT NULL COMMENT 'this is id',
+    `double_v` DECIMAL(20,6) DEFAULT 0,
+    `int_arr` TEXT COMMENT '@deprecated',
+    `map` TEXT,
+    `create_time` TIMESTAMP DEFAULT now(),
+    `update_time` TIMESTAMP DEFAULT now() ON UPDATE now(),
+    `delete_time` BIGINT(20) DEFAULT 0,
 
-  PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`)
 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT 'test.proto.Foo  This is Foo';
+) ENGINE=InnoDB COMMENT 'test.proto.Foo  This is Foo'
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
 
 

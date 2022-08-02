@@ -76,9 +76,12 @@ class SqlGenerator:
 %s
 """
     MsgTemplate = """%s
-CREATE TABLE IF NOT EXISTS `%s` (
+CREATE TABLE IF NOT EXISTS `%s`
+(
 %s
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT '%s';
+) ENGINE=InnoDB COMMENT '%s'
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
 """
 
     def __init__(self, proto, msg_filter):
@@ -118,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `%s` (
         for idx in range(len(lines)):
             line = lines[idx]
             if line != "":
-                table_code += "  " + line
+                table_code += "    " + line
                 if idx + 1 < len(lines):
                     table_code += ","
             table_code += "\n"
