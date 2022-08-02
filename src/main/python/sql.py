@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf8
+#!/usr/bin/env python3
 
 import sys
 
@@ -201,7 +200,7 @@ def generate_sql(req, resp):
 
 if __name__ == '__main__':
     # Read request message from stdin
-    data = sys.stdin.read()
+    data = sys.stdin.buffer.read()
 
     # Parse request
     request = plugin.CodeGeneratorRequest()
